@@ -29,9 +29,13 @@ class GuruResource extends Resource
                 Forms\Components\TextInput::make('nip')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('gender')
+                Forms\Components\Select::make('gender') // ✅ Diganti dari TextInput ke Select
                     ->required()
-                    ->maxLength(255),
+                    ->options([
+                        'L' => 'Laki-laki',
+                        'P' => 'Perempuan',
+                    ])
+                    ->searchable(),
                 Forms\Components\TextInput::make('alamat')
                     ->required()
                     ->maxLength(255),
@@ -54,6 +58,8 @@ class GuruResource extends Resource
                 Tables\Columns\TextColumn::make('nip')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
+                    ->label('Gender')
+                    ->formatStateUsing(fn (string $state) => $state === 'L' ? 'Laki-laki' : 'Perempuan') // ✅ Menampilkan label
                     ->searchable(),
                 Tables\Columns\TextColumn::make('alamat')
                     ->searchable(),
